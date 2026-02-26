@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - DBM Groups</title>
+    <link rel="icon" type="image/jpeg" href="Monogram.jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #123065 50%, #667eea 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .contact-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 35px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: -40px auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-form-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form-section h2 {
+            color: #1e3c72;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .contact-form-section p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(42, 82, 152, 0.3);
+        }
+
+        .contact-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            color: #1e3c72;
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card .icon {
+            font-size: 28px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .info-item:hover {
+            background: #e9ecef;
+        }
+
+        .info-item .emoji {
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .info-item a {
+            color: #2a5298;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-item a:hover {
+            color: #1e3c72;
+        }
+
+        .info-text {
+            color: #555;
+        }
+
+        .map-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 80px;
+            max-width: 1200px;
+        }
+
+        .map-container h3 {
+            color: #1e3c72;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            line-height: 400px;
+
+        }
+
+
+
+        /* Notification banner */
+        .form-notification {
+            display: none;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-notification.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-notification.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding: 60px 15px 40px;
+            }
+
+            .contact-hero h1 {
+                font-size: 28px;
+            }
+
+            .contact-hero p {
+                font-size: 16px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                margin: -20px auto 60px;
+                gap: 25px;
+            }
+
+            .contact-form-section,
+            .info-card {
+                padding: 25px;
+            }
+
+            .map-placeholder {
+                height: 300px;
+                font-size: 16px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact-info">
+                <a href="mailto:sales@dbmgroups.com">📧 sales@dbmgroups.com</a>
+                <a href="tel:1234567890">📞1234567890</a>
+            </div>
+            <a href="contact.html" class="cta-button">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <img src="Monogram.jpeg" alt="DBM Groups Logo" class="logo-img">
+                <span>DBM Groups</span>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#solutions">Solutions</a>
+                    <div class="dropdown-content">
+                        <div class="mega-menu">
+                            <div class="mega-column">
+                                <a href="data.html">DATA</a>
+                                <a href="events.html">EVENTS</a>
+                                <a href="courses.html">COURSES</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#services">Services</a>
+                    <div class="dropdown-content">
+                        <div class="mega-menu">
+                            <div class="mega-column">
+                                <h4>Data Solutions</h4>
+                                <a href="#">B2B Email Lists</a>
+                                <a href="#">C-Level Executive Lists</a>
+                                <a href="#">Decision Maker Database</a>
+                                <a href="#">Industry-Specific Lists</a>
+                                <a href="#">Geographic Targeting Lists</a>
+                                <a href="#">Job Title Based Lists</a>
+                                <a href="#">Company Size Lists</a>
+                                <a href="#">Revenue-Based Lists</a>
+                                <a href="#">SIC Code Lists</a>
+                                <a href="#">NAICS Code Lists</a>
+                                <a href="#">Employee Count Lists</a>
+                                <a href="#">Custom List Building</a>
+                                <a href="#">Prospect List Creation</a>
+                                <a href="#">Lead Generation Lists</a>
+                                <a href="#">Sales Prospecting Data</a>
+                                <a href="#">Marketing Database</a>
+                                <a href="#">Contact Discovery</a>
+                                <a href="#">Account-Based Lists</a>
+                                <a href="#">Territory Lists</a>
+                                <a href="#">Vertical Market Lists</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Data Enhancement</h4>
+                                <a href="#">Email Appending</a>
+                                <a href="#">Phone Appending</a>
+                                <a href="#">Address Verification</a>
+                                <a href="#">Data Standardization</a>
+                                <a href="#">Data Enrichment</a>
+                                <a href="#">Firmographic Data</a>
+                                <a href="#">Technographic Data</a>
+                                <a href="#">Contact Validation</a>
+                                <a href="#">Email Verification</a>
+                                <a href="#">Social Media Appending</a>
+                                <a href="#">LinkedIn Profile Match</a>
+                                <a href="#">Mobile Number Append</a>
+                                <a href="#">Fax Number Append</a>
+                                <a href="#">Company URL Append</a>
+                                <a href="#">Industry Classification</a>
+                                <a href="#">Revenue Appending</a>
+                                <a href="#">Employee Size Data</a>
+                                <a href="#">Location Intelligence</a>
+                                <a href="#">Hierarchy Mapping</a>
+                                <a href="#">Parent Company Data</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Data Management</h4>
+                                <a href="#">Database Cleaning</a>
+                                <a href="#">Duplicate Removal</a>
+                                <a href="#">Data Deduplication</a>
+                                <a href="#">List Hygiene</a>
+                                <a href="#">Data Quality Services</a>
+                                <a href="#">CRM Data Cleansing</a>
+                                <a href="#">Contact Updates</a>
+                                <a href="#">Deceased Suppression</a>
+                                <a href="#">NCOA Processing</a>
+                                <a href="#">Opt-Out Management</a>
+                                <a href="#">Suppression File Services</a>
+                                <a href="#">Data Consolidation</a>
+                                <a href="#">Master Data Management</a>
+                                <a href="#">Data Migration</a>
+                                <a href="#">Legacy Data Conversion</a>
+                                <a href="#">CRM Integration</a>
+                                <a href="#">Salesforce Integration</a>
+                                <a href="#">HubSpot Integration</a>
+                                <a href="#">Marketo Integration</a>
+                                <a href="#">Pardot Integration</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Marketing Services</h4>
+                                <a href="#">Email Campaign Management</a>
+                                <a href="#">Drip Campaign Setup</a>
+                                <a href="#">Newsletter Services</a>
+                                <a href="#">Email Template Design</a>
+                                <a href="#">A/B Testing Services</a>
+                                <a href="#">Campaign Analytics</a>
+                                <a href="#">Conversion Tracking</a>
+                                <a href="#">Lead Nurturing</a>
+                                <a href="#">Marketing Automation</a>
+                                <a href="#">Telemarketing Lists</a>
+                                <a href="#">Direct Mail Lists</a>
+                                <a href="#">Multi-Channel Marketing</a>
+                                <a href="#">Account-Based Marketing</a>
+                                <a href="#">Intent Data Services</a>
+                                <a href="#">Predictive Analytics</a>
+                                <a href="#">Lead Scoring</a>
+                                <a href="#">Segmentation Services</a>
+                                <a href="#">Personalization Services</a>
+                                <a href="#">Content Syndication</a>
+                                <a href="#">Webinar Lead Lists</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Compliance &amp; Security</h4>
+                                <a href="#">GDPR Compliance</a>
+                                <a href="#">CAN-SPAM Compliance</a>
+                                <a href="#">CASL Compliance</a>
+                                <a href="#">CCPA Compliance</a>
+                                <a href="#">Data Privacy Services</a>
+                                <a href="#">Consent Management</a>
+                                <a href="#">DNC Scrubbing</a>
+                                <a href="#">Litigation Scrubbing</a>
+                                <a href="#">Email Security</a>
+                                <a href="#">Data Encryption</a>
+                                <a href="#">Secure Data Transfer</a>
+                                <a href="#">Access Control</a>
+                                <a href="#">Audit Trail Services</a>
+                                <a href="#">Privacy Shield Certification</a>
+                                <a href="#">ISO Compliance</a>
+                                <a href="#">SOC 2 Compliance</a>
+                                <a href="#">Data Retention Policies</a>
+                                <a href="#">Cookie Consent</a>
+                                <a href="#">Preference Centers</a>
+                                <a href="#">Unsubscribe Management</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#industries">Industries</a>
+                    <div class="dropdown-content">
+                        <div class="mega-menu">
+                            <div class="mega-column">
+                                <h4>Technology &amp; IT</h4>
+                                <a href="#">Software Development</a>
+                                <a href="#">SaaS Companies</a>
+                                <a href="#">Cloud Computing</a>
+                                <a href="#">Cybersecurity</a>
+                                <a href="#">IT Services</a>
+                                <a href="#">Managed Services</a>
+                                <a href="#">Hardware Manufacturing</a>
+                                <a href="#">Semiconductor</a>
+                                <a href="#">AI &amp; Machine Learning</a>
+                                <a href="#">Data Analytics</a>
+                                <a href="#">IoT Solutions</a>
+                                <a href="#">Mobile App Development</a>
+                                <a href="#">Web Development</a>
+                                <a href="#">DevOps Services</a>
+                                <a href="#">Blockchain Technology</a>
+                                <a href="#">Network Infrastructure</a>
+                                <a href="#">Telecommunications</a>
+                                <a href="#">VoIP Services</a>
+                                <a href="#">Tech Consulting</a>
+                                <a href="#">System Integration</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Healthcare &amp; Medical</h4>
+                                <a href="#">Hospitals</a>
+                                <a href="#">Medical Practices</a>
+                                <a href="#">Dental Practices</a>
+                                <a href="#">Pharmaceuticals</a>
+                                <a href="#">Medical Devices</a>
+                                <a href="#">Biotechnology</a>
+                                <a href="#">Clinical Research</a>
+                                <a href="#">Healthcare IT</a>
+                                <a href="#">Telemedicine</a>
+                                <a href="#">Health Insurance</a>
+                                <a href="#">Medical Billing</a>
+                                <a href="#">Laboratory Services</a>
+                                <a href="#">Diagnostic Imaging</a>
+                                <a href="#">Home Healthcare</a>
+                                <a href="#">Senior Care</a>
+                                <a href="#">Mental Health Services</a>
+                                <a href="#">Rehabilitation Centers</a>
+                                <a href="#">Medical Supply</a>
+                                <a href="#">Health &amp; Wellness</a>
+                                <a href="#">Veterinary Services</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Finance &amp; Banking</h4>
+                                <a href="#">Commercial Banking</a>
+                                <a href="#">Investment Banking</a>
+                                <a href="#">Wealth Management</a>
+                                <a href="#">Asset Management</a>
+                                <a href="#">Financial Planning</a>
+                                <a href="#">Insurance Carriers</a>
+                                <a href="#">Insurance Brokers</a>
+                                <a href="#">Credit Unions</a>
+                                <a href="#">Mortgage Lending</a>
+                                <a href="#">Private Equity</a>
+                                <a href="#">Venture Capital</a>
+                                <a href="#">Hedge Funds</a>
+                                <a href="#">Trading Firms</a>
+                                <a href="#">FinTech</a>
+                                <a href="#">Payment Processing</a>
+                                <a href="#">Accounting Services</a>
+                                <a href="#">Tax Services</a>
+                                <a href="#">Auditing Firms</a>
+                                <a href="#">Financial Consulting</a>
+                                <a href="#">Risk Management</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Manufacturing &amp; Industrial</h4>
+                                <a href="#">Automotive Manufacturing</a>
+                                <a href="#">Aerospace &amp; Defense</a>
+                                <a href="#">Chemical Manufacturing</a>
+                                <a href="#">Electronics Manufacturing</a>
+                                <a href="#">Food &amp; Beverage</a>
+                                <a href="#">Pharmaceutical Manufacturing</a>
+                                <a href="#">Plastics &amp; Packaging</a>
+                                <a href="#">Textile Manufacturing</a>
+                                <a href="#">Metal Fabrication</a>
+                                <a href="#">Machinery Manufacturing</a>
+                                <a href="#">Construction Equipment</a>
+                                <a href="#">Industrial Automation</a>
+                                <a href="#">Energy &amp; Utilities</a>
+                                <a href="#">Oil &amp; Gas</a>
+                                <a href="#">Mining &amp; Minerals</a>
+                                <a href="#">Paper &amp; Pulp</a>
+                                <a href="#">Furniture Manufacturing</a>
+                                <a href="#">Building Materials</a>
+                                <a href="#">Industrial Distribution</a>
+                                <a href="#">Supply Chain Services</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Business Services</h4>
+                                <a href="#">Marketing Agencies</a>
+                                <a href="#">Advertising Agencies</a>
+                                <a href="#">PR Firms</a>
+                                <a href="#">Legal Services</a>
+                                <a href="#">Management Consulting</a>
+                                <a href="#">HR Consulting</a>
+                                <a href="#">Staffing Agencies</a>
+                                <a href="#">Recruiting Firms</a>
+                                <a href="#">Business Process Outsourcing</a>
+                                <a href="#">Call Centers</a>
+                                <a href="#">Real Estate Services</a>
+                                <a href="#">Property Management</a>
+                                <a href="#">Architecture &amp; Engineering</a>
+                                <a href="#">Construction Services</a>
+                                <a href="#">Facility Management</a>
+                                <a href="#">Security Services</a>
+                                <a href="#">Environmental Services</a>
+                                <a href="#">Logistics &amp; Transportation</a>
+                                <a href="#">Event Management</a>
+                                <a href="#">Training &amp; Development</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#resources">Resources</a>
+                    <div class="dropdown-content">
+                        <div class="mega-menu">
+                            <div class="mega-column">
+                                <h4>Educational Content</h4>
+                                <a href="#">B2B Marketing Guide</a>
+                                <a href="#">Email Marketing Best Practices</a>
+                                <a href="#">Lead Generation Strategies</a>
+                                <a href="#">Data Quality Whitepaper</a>
+                                <a href="#">CRM Optimization Guide</a>
+                                <a href="#">Marketing Automation Tutorial</a>
+                                <a href="#">Sales Enablement Resources</a>
+                                <a href="#">Account-Based Marketing Guide</a>
+                                <a href="#">Content Marketing Templates</a>
+                                <a href="#">Social Media B2B Guide</a>
+                                <a href="#">Conversion Optimization Tips</a>
+                                <a href="#">Analytics &amp; Reporting Guide</a>
+                                <a href="#">Segmentation Strategies</a>
+                                <a href="#">Personalization Techniques</a>
+                                <a href="#">Multi-Channel Marketing Guide</a>
+                                <a href="#">Customer Journey Mapping</a>
+                                <a href="#">Buyer Persona Development</a>
+                                <a href="#">Value Proposition Guide</a>
+                                <a href="#">Competitive Analysis Tools</a>
+                                <a href="#">Market Research Methods</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Industry Reports</h4>
+                                <a href="#">B2B Marketing Trends 2026</a>
+                                <a href="#">Email Marketing Benchmarks</a>
+                                <a href="#">Data Quality Statistics</a>
+                                <a href="#">Lead Generation ROI Report</a>
+                                <a href="#">Marketing Technology Landscape</a>
+                                <a href="#">Sales &amp; Marketing Alignment</a>
+                                <a href="#">Customer Acquisition Costs</a>
+                                <a href="#">Industry Growth Forecasts</a>
+                                <a href="#">Digital Transformation Report</a>
+                                <a href="#">Marketing Budget Allocation</a>
+                                <a href="#">Channel Performance Analysis</a>
+                                <a href="#">Technology Adoption Rates</a>
+                                <a href="#">Regional Market Analysis</a>
+                                <a href="#">Competitive Landscape Report</a>
+                                <a href="#">Consumer Behavior Studies</a>
+                                <a href="#">Enterprise Software Trends</a>
+                                <a href="#">Small Business Statistics</a>
+                                <a href="#">Startup Ecosystem Report</a>
+                                <a href="#">Investment Trends Report</a>
+                                <a href="#">Regulatory Compliance Updates</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Tools &amp; Templates</h4>
+                                <a href="#">Email Campaign Planner</a>
+                                <a href="#">ROI Calculator</a>
+                                <a href="#">Budget Planning Template</a>
+                                <a href="#">Campaign Calendar Template</a>
+                                <a href="#">Lead Scoring Model</a>
+                                <a href="#">Content Calendar Template</a>
+                                <a href="#">Marketing Plan Template</a>
+                                <a href="#">Competitive Analysis Worksheet</a>
+                                <a href="#">SWOT Analysis Template</a>
+                                <a href="#">Buyer Persona Template</a>
+                                <a href="#">Customer Survey Template</a>
+                                <a href="#">Email Template Library</a>
+                                <a href="#">Landing Page Checklist</a>
+                                <a href="#">SEO Audit Template</a>
+                                <a href="#">Social Media Calendar</a>
+                                <a href="#">Sales Script Generator</a>
+                                <a href="#">Proposal Template</a>
+                                <a href="#">Case Study Template</a>
+                                <a href="#">Onboarding Checklist</a>
+                                <a href="#">Performance Dashboard</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Case Studies &amp; Success Stories</h4>
+                                <a href="#">SaaS Lead Generation Success</a>
+                                <a href="#">Healthcare Data Appending Case</a>
+                                <a href="#">Financial Services ABM Campaign</a>
+                                <a href="#">Manufacturing Email Campaign</a>
+                                <a href="#">Tech Startup Growth Story</a>
+                                <a href="#">Enterprise CRM Integration</a>
+                                <a href="#">E-commerce Personalization</a>
+                                <a href="#">B2B Marketplace Success</a>
+                                <a href="#">Consulting Firm Lead Gen</a>
+                                <a href="#">Insurance Agency Campaign</a>
+                                <a href="#">Real Estate Database Build</a>
+                                <a href="#">Education Sector Outreach</a>
+                                <a href="#">Non-Profit Donor Acquisition</a>
+                                <a href="#">Retail B2B Partnership</a>
+                                <a href="#">Professional Services Growth</a>
+                                <a href="#">Industrial Distributor Success</a>
+                                <a href="#">Media Company Database</a>
+                                <a href="#">Hospitality Industry Campaign</a>
+                                <a href="#">Transportation Lead Gen</a>
+                                <a href="#">Energy Sector Prospecting</a>
+                            </div>
+                            <div class="mega-column">
+                                <h4>Support &amp; Learning</h4>
+                                <a href="#">Getting Started Guide</a>
+                                <a href="#">API Documentation</a>
+                                <a href="#">Integration Tutorials</a>
+                                <a href="#">Video Training Library</a>
+                                <a href="#">Webinar Recordings</a>
+                                <a href="#">FAQ Database</a>
+                                <a href="#">Troubleshooting Guide</a>
+                                <a href="#">Customer Support Portal</a>
+                                <a href="#">Community Forum</a>
+                                <a href="#">Best Practices Hub</a>
+                                <a href="#">Product Updates</a>
+                                <a href="#">Feature Announcements</a>
+                                <a href="#">Release Notes</a>
+                                <a href="#">Knowledge Base</a>
+                                <a href="#">Certification Program</a>
+                                <a href="#">Partner Resources</a>
+                                <a href="#">Developer Documentation</a>
+                                <a href="#">Security &amp; Compliance Docs</a>
+                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#">Privacy Policy</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="exhibitors.html">Exhibitors</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <h1>Get In Touch With Us</h1>
+        <p>We're here to help you grow your business with data-driven marketing solutions and invaluable</p>
+    </section>
+
+    <!-- Contact Container -->
+    <div class="contact-container">
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+            <h2>Send Us a Message</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours</p>
+            <div class="form-notification" id="formNotification"></div>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="john@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" name="company" placeholder="Your Company">
+                </div>
+                <div class="form-group">
+                    <label for="service">Service Interested In</label>
+                    <select id="service" name="service">
+                        <option value="">Select a service</option>
+                        <option value="email-lists">Email Marketing Lists</option>
+                        <option value="data-appending">Data Appending</option>
+                        <option value="data-cleansing">Data Cleansing</option>
+                        <option value="crm-enrichment">CRM Enrichment</option>
+                        <option value="email-campaigns">Email Campaigns</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required
+                        placeholder="Tell us about your project..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info-section">
+            <div class="info-card">
+                <h3><span class="icon">📞</span> Contact Information</h3>
+                <div class="info-item">
+                    <span class="emoji">📧</span>
+                    <div>
+                        <strong>Email:</strong><br>
+                        <a href="mailto:sales@dbmgroups.com">sales@dbmgroups.com</a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="emoji">📱</span>
+                    <div>
+                        <strong>Phone:</strong><br>
+                        <a href="tel:+1 (972) 752-2501">USA: +1 (972) 752-2501</a><br>
+                        <a href="tel:+91 9876543210">India: +91 80735 43511</a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="emoji">📍</span>
+                    <div class="info-text">
+                        <span style="color: #333; font-weight: bold;">Head Quarters:</span><br>
+                        <span style="color: #2a5298;">#300 E ROYAL LN #127 IRVING, TX</span><br>
+                        <br>
+                        <span style="color: #333; font-weight: bold;">Branch Office:</span><br>
+                        <span style="color: #2a5298;">No: 181, SS Forum, Back Side, Cheemasandra, Bidarahalli,
+                            Bengaluru, Karnataka 560049</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="icon">🚀</span> Quick Response</h3>
+                <div class="info-text" style="line-height: 1.8;">
+                    Our team typically responds to inquiries within 24 hours during business days. For urgent matters,
+                    please call us directly.
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="icon">💼</span> Sales Inquiries</h3>
+                <div class="info-text" style="line-height: 1.8;">
+                    For custom quotes and enterprise solutions, our sales team is ready to discuss your specific needs
+                    and provide tailored recommendations.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">
+            <div class="footer-brand-logo">DBM Groups</div>
+            <div class="footer-brand-tagline">Data-Driven Marketing &amp; B2B Solutions</div>
+        </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p style="color:rgba(255,255,255,0.7); font-size:14px; line-height:1.8;">
+                    DBM Group can engage with your company for any creative or strategic agency. Let our Marketing
+                    Solutions team deliver all your branding into any channel, across all media — anywhere in the world.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="data.html">Data</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📧 &nbsp;sales@dbmgroups.com</li>
+                </ul>
+                <h6>USA</h6>
+                <ul>
+                    <li>📞 &nbsp;+1 (972) 752-2501</li>
+                    <li>📍 &nbsp;#300 E Royal Ln #127, Irving, TX</li>
+                </ul>
+                <h6>Asia</h6>
+                <ul>
+                    <li>📞 &nbsp;+91 80735 43511</li>
+                    <li>📍 &nbsp;No: 181, SS Forum, Back Side, Cheemasandra, Bidarahalli, Bengaluru, Karnataka 560049
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dbm__groups?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        target="_blank" class="social-link"><span class="social-icon"><i
+                                class="fa-brands fa-instagram"></i></span> Instagram</a>
+                    <a href="https://www.facebook.com/share/1E3BicadE1/" target="_blank" class="social-link"><span
+                            class="social-icon"><i class="fa-brands fa-facebook-f"></i></span> Facebook</a>
+                    <a href="https://www.linkedin.com/company/dbmgroups/" target="_blank" class="social-link"><span
+                            class="social-icon"><i class="fa-brands fa-linkedin-in"></i></span> LinkedIn</a>
+                    <a href="https://x.com/Dbm_Groups?s=20" target="_blank" class="social-link"><span
+                            class="social-icon"><i class="fa-brands fa-x-twitter"></i></span> Twitter / X</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 DBM Groups. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function () {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Dropdown click handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdowns = document.querySelectorAll('.dropdown');
+
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Close all other dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) {
+                        // Don't close if it's a dropdown toggle
+                        if (!this.parentElement.classList.contains('dropdown')) {
+                            hamburger.classList.remove('active');
+                            navLinks.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Form submission → Flask backend
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const notification = document.getElementById('formNotification');
+
+        function showNotification(type, message) {
+            notification.className = 'form-notification ' + type;
+            notification.textContent = message;
+            notification.style.display = 'block';
+            notification.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        contactForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            notification.style.display = 'none';
+
+            // Collect form data
+            const data = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value.trim()
+            };
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Sending...';
+
+            try {
+                const response = await fetch('/submit-contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showNotification('success', '✅ ' + result.message);
+                    contactForm.reset();
+                } else {
+                    showNotification('error', '❌ ' + result.message);
+                }
+            } catch (err) {
+                showNotification('error', '❌ Could not connect to the server. Please make sure the backend is running or try again later.');
+                console.error('Submission error:', err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+
+</html>
