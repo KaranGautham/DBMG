@@ -1,0 +1,361 @@
+/* Data Hero */
+.data-hero {
+    background: linear-gradient(135deg, #1e3c72 0%, #174189 50%, #172a7d 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.data-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.data-hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    animation: fadeInUp 1s ease;
+}
+
+.data-hero p {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* Data Container */
+.data-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Data Overview */
+.data-overview {
+    padding: 80px 20px;
+    background: #fff;
+}
+
+.data-intro h2 {
+    font-size: 36px;
+    color: #1e3c72;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.data-intro p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 18px;
+    text-align: center;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Data Strengths */
+.data-strengths {
+    background: #f8f9fa;
+    padding: 80px 20px;
+}
+
+.strengths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+.strength-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.strength-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.strength-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.strength-card h3 {
+    font-size: 22px;
+    color: #1e3c72;
+    margin-bottom: 15px;
+}
+
+.strength-card p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.7;
+}
+
+/* Data Results */
+.data-results {
+    padding: 80px 20px;
+    background: #fff;
+}
+
+.results-content {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.results-content h2 {
+    font-size: 36px;
+    color: #1e3c72;
+    margin-bottom: 25px;
+}
+
+.results-content p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.results-highlight {
+    margin-top: 30px;
+    padding: 30px 35px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.results-highlight p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 19px;
+    margin-bottom: 0;
+}
+
+/* Email Leads Section */
+.data-email-leads {
+    padding: 80px 20px;
+    background: #f8f9fa;
+}
+
+.email-leads-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.email-leads-text h2 {
+    font-size: 32px;
+    color: #1e3c72;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.email-leads-text p {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.email-leads-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.visual-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 4px solid #2a5298;
+}
+
+.visual-card:hover {
+    transform: translateX(6px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.visual-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+}
+
+.visual-card h4 {
+    font-size: 17px;
+    color: #1e3c72;
+    margin-bottom: 4px;
+}
+
+.visual-card p {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Data Verification */
+.data-verification {
+    padding: 80px 20px;
+    background: #fff;
+}
+
+.verification-content {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.verification-content h2 {
+    font-size: 36px;
+    color: #1e3c72;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.verification-content p {
+    font-size: 17px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+/* Data Services List */
+.data-services-list {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+}
+
+.data-services-list h2 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.services-subtitle {
+    text-align: center;
+    font-size: 17px;
+    opacity: 0.85;
+    margin-bottom: 45px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.service-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+}
+
+.service-dot {
+    width: 8px;
+    height: 8px;
+    background: #ff6b35;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .data-hero {
+        padding: 60px 15px;
+    }
+
+    .data-hero h1 {
+        font-size: 30px;
+    }
+
+    .data-hero p {
+        font-size: 16px;
+    }
+
+    .data-overview {
+        padding: 50px 15px;
+    }
+
+    .data-intro h2,
+    .results-content h2,
+    .verification-content h2,
+    .data-services-list h2 {
+        font-size: 26px;
+    }
+
+    .data-intro p,
+    .results-content p,
+    .verification-content p {
+        font-size: 16px;
+    }
+
+    .data-strengths {
+        padding: 50px 15px;
+    }
+
+    .strengths-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .data-results {
+        padding: 50px 15px;
+    }
+
+    .results-highlight {
+        padding: 25px 20px;
+    }
+
+    .results-highlight p {
+        font-size: 16px;
+    }
+
+    .data-email-leads {
+        padding: 50px 15px;
+    }
+
+    .email-leads-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .email-leads-text h2 {
+        font-size: 24px;
+    }
+
+    .data-verification {
+        padding: 50px 15px;
+    }
+
+    .data-services-list {
+        padding: 50px 15px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}

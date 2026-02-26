@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.port": 5501,
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "Jet Brains Mono",
+    "terminal.integrated.focusAfterRun": "terminal",
+    "terminal.integrated.suggest.runOnEnter": "always"
+}
