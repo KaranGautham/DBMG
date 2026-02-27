@@ -1,1 +1,18 @@
+# Environment variables (contains secrets!)
 .env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# SQLite database (local only)
+instance/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

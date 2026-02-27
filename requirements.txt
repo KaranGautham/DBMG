@@ -3,6 +3,8 @@ flask-sqlalchemy
 flask-mail
 flask-cors
 python-dotenv
+gunicorn
+psycopg2-binary
 
 
 

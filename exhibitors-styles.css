@@ -74,6 +74,10 @@
     border-color: #2a5298;
 }
 
+.form-group:has(.form-textarea) {
+    grid-column: 1 / -1;
+}
+
 .form-textarea {
     width: 100%;
     padding: 15px;
@@ -83,7 +87,7 @@
     color: #333;
     outline: none;
     resize: vertical;
-    min-height: 100px;
+    min-height: 150px;
     font-family: inherit;
     transition: border-color 0.3s;
 }
@@ -97,14 +101,14 @@
     color: white;
     border: none;
     padding: 15px 50px;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     text-transform: uppercase;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     margin-top: 10px;
-    display: inline-block;
+    width: 100%;
 }
 
 .submit-btn-green:hover {
