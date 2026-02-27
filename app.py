@@ -125,7 +125,10 @@ def submit_contact():
             print(traceback.format_exc())
 
         # Send email in background thread (won't block the response)
-        subject = f'New Contact Form Submission – {data.get("name", "Unknown")}'
+        import random
+        import string
+        unique_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+        subject = f'New Contact Form Submission – {data.get("name", "Unknown")} [{unique_id}]'
         body = f"""
 New contact form submission received on DBM GROUPS website.
 
