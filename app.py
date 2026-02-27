@@ -55,12 +55,23 @@ def send_email_background(subject, recipient, body):
 
     try:
         print(f'[DEBUG] Sending email: from={from_email}, to={recipient}, key={api_key[:8]}...')
-        payload = jsonlib.dumps({
+        
+        # Resend payload with deliverability best practices
+        payload_dict = {
             'from': from_email,
             'to': [recipient],
             'subject': subject,
-            'text': body
-        }).encode('utf-8')
+            'text': body,
+            'reply_to': 'sales@dbmgroups.com'  # Safe fallback
+        }
+        
+        # Try to extract sender's email for Reply-To so you can hit "Reply" in your inbox
+        import re
+        email_match = re.search(r'Email\s*:\s*([^\n]+)', body)
+        if email_match and '@' in email_match.group(1):
+            payload_dict['reply_to'] = email_match.group(1).strip()
+            
+        payload = jsonlib.dumps(payload_dict).encode('utf-8')
 
         req = urllib.request.Request(
             'https://api.resend.com/emails',
@@ -125,10 +136,7 @@ def submit_contact():
             print(traceback.format_exc())
 
         # Send email in background thread (won't block the response)
-        import random
-        import string
-        unique_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
-        subject = f'New Contact Form Submission – {data.get("name", "Unknown")} [{unique_id}]'
+        subject = f'New Contact Form Submission – {data.get("name", "Unknown")}'
         body = f"""
 New contact form submission received on DBM GROUPS website.
 
