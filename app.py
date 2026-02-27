@@ -1,7 +1,8 @@
 import os
+import threading
+import traceback
 from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail, Message
 from flask_cors import CORS
 from dotenv import load_dotenv
 from datetime import datetime
@@ -20,17 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'change-me-in-production')
 
-# ── Mail config (Google Workspace / Gmail SMTP) ──────────────────────────────
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
-
 db = SQLAlchemy(app)
-mail = Mail(app)
 
 
 # ── Model ─────────────────────────────────────────────────────────────────────
@@ -48,6 +39,37 @@ class Contact(db.Model):
         return f'<Contact {self.name} – {self.email}>'
 
 
+# ── Email helper (background thread with timeout) ────────────────────────────
+def send_email_background(subject, recipient, body):
+    """Send email in a background thread so the request doesn't hang."""
+    import smtplib
+    from email.mime.text import MIMEText
+
+    username = os.getenv('MAIL_USERNAME')
+    password = os.getenv('MAIL_PASSWORD')
+
+    if not username or not password:
+        print('[WARN] MAIL_USERNAME or MAIL_PASSWORD not set — skipping email.')
+        return
+
+    try:
+        msg = MIMEText(body)
+        msg['Subject'] = subject
+        msg['From'] = username
+        msg['To'] = recipient
+
+        # Connect with a 10-second timeout to avoid hanging
+        server = smtplib.SMTP('smtp.gmail.com', 587, timeout=10)
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(username, [recipient], msg.as_string())
+        server.quit()
+        print(f'[INFO] Email sent to {recipient}')
+    except Exception as e:
+        print(f'[WARN] Email send failed: {e}')
+        print(traceback.format_exc())
+
+
 # ── Serve static site files ───────────────────────────────────────────────────
 SITE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -63,7 +85,6 @@ def serve_file(filename):
 # ── Routes ────────────────────────────────────────────────────────────────────
 @app.route('/submit-contact', methods=['POST'])
 def submit_contact():
-    import traceback
     try:
         data = request.get_json()
 
@@ -85,17 +106,15 @@ def submit_contact():
             )
             db.session.add(contact)
             db.session.commit()
+            print(f'[INFO] Contact saved: {contact.name} ({contact.email})')
         except Exception as db_err:
             db.session.rollback()
             print(f'[WARN] Database save failed: {db_err}')
             print(traceback.format_exc())
-            # Continue anyway — still try to send email
 
-        # Send email notification
-        try:
-            recipient = 'sales@dbmgroups.com'
-            subject = f'New Contact Form Submission – {data.get("name", "Unknown")}'
-            body = f"""
+        # Send email in background thread (won't block the response)
+        subject = f'New Contact Form Submission – {data.get("name", "Unknown")}'
+        body = f"""
 New contact form submission received on DBM GROUPS website.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -108,19 +127,14 @@ New contact form submission received on DBM GROUPS website.
 
 Message:
 {data.get('message', 'N/A')}
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            """.strip()
+        """.strip()
 
-            msg = Message(subject=subject, recipients=[recipient], body=body)
-            mail.send(msg)
-        except Exception as mail_err:
-            print(f'[WARN] Email send failed: {mail_err}')
-            print(traceback.format_exc())
-            return jsonify({
-                'success': True,
-                'message': 'Your message was saved, but email notification failed. We will still get back to you!'
-            })
+        email_thread = threading.Thread(
+            target=send_email_background,
+            args=(subject, 'sales@dbmgroups.com', body)
+        )
+        email_thread.start()
 
         return jsonify({'success': True, 'message': 'Thank you! Your message has been sent successfully.'})
 
