@@ -63,61 +63,71 @@ def serve_file(filename):
 # ── Routes ────────────────────────────────────────────────────────────────────
 @app.route('/submit-contact', methods=['POST'])
 def submit_contact():
-    data = request.get_json()
-
-    # Basic validation
-    required = ['name', 'email', 'message']
-    for field in required:
-        if not data.get(field, '').strip():
-            return jsonify({'success': False, 'message': f'"{field}" is required.'}), 400
-
-    # Save to database
-    contact = Contact(
-        name=data.get('name', '').strip(),
-        email=data.get('email', '').strip(),
-        phone=data.get('phone', '').strip(),
-        company=data.get('company', '').strip(),
-        service=data.get('service', '').strip(),
-        message=data.get('message', '').strip(),
-    )
-    db.session.add(contact)
-    db.session.commit()
-
-    # Send email notification
+    import traceback
     try:
-        recipient = 'sales@dbmgroups.com'
-        subject = f'New Contact Form Submission – {contact.name}'
-        body = f"""
-New contact form submission received on DBM Groups website.
+        data = request.get_json()
+
+        # Basic validation
+        required = ['name', 'email', 'message']
+        for field in required:
+            if not data.get(field, '').strip():
+                return jsonify({'success': False, 'message': f'"{field}" is required.'}), 400
+
+        # Save to database
+        try:
+            contact = Contact(
+                name=data.get('name', '').strip(),
+                email=data.get('email', '').strip(),
+                phone=data.get('phone', '').strip(),
+                company=data.get('company', '').strip(),
+                service=data.get('service', '').strip(),
+                message=data.get('message', '').strip(),
+            )
+            db.session.add(contact)
+            db.session.commit()
+        except Exception as db_err:
+            db.session.rollback()
+            print(f'[WARN] Database save failed: {db_err}')
+            print(traceback.format_exc())
+            # Continue anyway — still try to send email
+
+        # Send email notification
+        try:
+            recipient = 'sales@dbmgroups.com'
+            subject = f'New Contact Form Submission – {data.get("name", "Unknown")}'
+            body = f"""
+New contact form submission received on DBM GROUPS website.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Name     : {contact.name}
-  Email    : {contact.email}
-  Phone    : {contact.phone     or 'N/A'}
-  Company  : {contact.company   or 'N/A'}
-  Service  : {contact.service   or 'N/A'}
+  Name     : {data.get('name', 'N/A')}
+  Email    : {data.get('email', 'N/A')}
+  Phone    : {data.get('phone', 'N/A') or 'N/A'}
+  Company  : {data.get('company', 'N/A') or 'N/A'}
+  Service  : {data.get('service', 'N/A') or 'N/A'}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Message:
-{contact.message}
+{data.get('message', 'N/A')}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Submitted at: {contact.submitted_at.strftime('%Y-%m-%d %H:%M:%S')} UTC
-        """.strip()
+            """.strip()
 
-        msg = Message(subject=subject, recipients=[recipient], body=body)
-        mail.send(msg)
+            msg = Message(subject=subject, recipients=[recipient], body=body)
+            mail.send(msg)
+        except Exception as mail_err:
+            print(f'[WARN] Email send failed: {mail_err}')
+            print(traceback.format_exc())
+            return jsonify({
+                'success': True,
+                'message': 'Your message was saved, but email notification failed. We will still get back to you!'
+            })
+
+        return jsonify({'success': True, 'message': 'Thank you! Your message has been sent successfully.'})
+
     except Exception as e:
-        # Email failed – still return success since data is saved
-        import traceback
-        print(f'[WARN] Email send failed: {e}')
+        print(f'[ERROR] submit_contact crashed: {e}')
         print(traceback.format_exc())
-        return jsonify({
-            'success': True,
-            'message': 'Your message was saved, but email notification failed. We will still get back to you!'
-        })
-
-    return jsonify({'success': True, 'message': 'Thank you! Your message has been sent successfully.'})
+        return jsonify({'success': False, 'message': 'Server error. Please try again later.'}), 500
 
 
 # ── Admin: view all submissions (optional) ────────────────────────────────────
