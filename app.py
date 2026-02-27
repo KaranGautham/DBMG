@@ -54,6 +54,7 @@ def send_email_background(subject, recipient, body):
         return
 
     try:
+        print(f'[DEBUG] Sending email: from={from_email}, to={recipient}, key={api_key[:8]}...')
         payload = jsonlib.dumps({
             'from': from_email,
             'to': [recipient],
@@ -71,6 +72,10 @@ def send_email_background(subject, recipient, body):
         )
         response = urllib.request.urlopen(req, timeout=10)
         print(f'[INFO] Email sent to {recipient} (status {response.status})')
+    except urllib.error.HTTPError as http_err:
+        error_body = http_err.read().decode('utf-8', errors='replace')
+        print(f'[WARN] Email send failed: {http_err.code} {http_err.reason}')
+        print(f'[WARN] Resend error details: {error_body}')
     except Exception as e:
         print(f'[WARN] Email send failed: {e}')
         print(traceback.format_exc())
