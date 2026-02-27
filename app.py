@@ -39,32 +39,38 @@ class Contact(db.Model):
         return f'<Contact {self.name} – {self.email}>'
 
 
-# ── Email helper (background thread with timeout) ────────────────────────────
+# ── Email helper (Resend HTTP API – works on Render free tier) ────────────────
 def send_email_background(subject, recipient, body):
-    """Send email in a background thread so the request doesn't hang."""
-    import smtplib
-    from email.mime.text import MIMEText
+    """Send email via Resend HTTP API in a background thread."""
+    import urllib.request
+    import urllib.error
+    import json as jsonlib
 
-    username = os.getenv('MAIL_USERNAME')
-    password = os.getenv('MAIL_PASSWORD')
+    api_key = os.getenv('RESEND_API_KEY')
+    from_email = os.getenv('FROM_EMAIL', 'onboarding@resend.dev')
 
-    if not username or not password:
-        print('[WARN] MAIL_USERNAME or MAIL_PASSWORD not set — skipping email.')
+    if not api_key:
+        print('[WARN] RESEND_API_KEY not set — skipping email.')
         return
 
     try:
-        msg = MIMEText(body)
-        msg['Subject'] = subject
-        msg['From'] = username
-        msg['To'] = recipient
+        payload = jsonlib.dumps({
+            'from': from_email,
+            'to': [recipient],
+            'subject': subject,
+            'text': body
+        }).encode('utf-8')
 
-        # Connect with a 10-second timeout to avoid hanging
-        server = smtplib.SMTP('smtp.gmail.com', 587, timeout=10)
-        server.starttls()
-        server.login(username, password)
-        server.sendmail(username, [recipient], msg.as_string())
-        server.quit()
-        print(f'[INFO] Email sent to {recipient}')
+        req = urllib.request.Request(
+            'https://api.resend.com/emails',
+            data=payload,
+            headers={
+                'Authorization': f'Bearer {api_key}',
+                'Content-Type': 'application/json'
+            }
+        )
+        response = urllib.request.urlopen(req, timeout=10)
+        print(f'[INFO] Email sent to {recipient} (status {response.status})')
     except Exception as e:
         print(f'[WARN] Email send failed: {e}')
         print(traceback.format_exc())
