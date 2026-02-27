@@ -1,0 +1,132 @@
+/* Exhibitors Page Styles */
+/* Reusing styles from visitors page for consistency */
+
+.exhibitors-hero {
+    background: #1e3c72;
+    /* Deep blue background */
+    color: white;
+    padding: 20px 20px 10px;
+    text-align: center;
+    position: relative;
+    min-height: 400px;
+}
+
+.exhibitors-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exhibitors-hero p {
+    font-size: 20px;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: auto;
+    opacity: 0.9;
+}
+
+/* Floating Form Card */
+.form-card-container {
+    max-width: 800px;
+    margin: -150px auto 80px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.form-card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-card h2 {
+    color: #1e3c72;
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.exhibitors-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: #2a5298;
+}
+
+.form-textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-textarea:focus {
+    border-color: #2a5298;
+}
+
+.submit-btn-green {
+    background-color: #6bd475;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.submit-btn-green:hover {
+    background-color: #5bc966;
+}
+
+.form-submit-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .exhibitors-hero h1 {
+        font-size: 28px;
+    }
+
+    .exhibitors-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        padding: 30px 20px;
+    }
+}

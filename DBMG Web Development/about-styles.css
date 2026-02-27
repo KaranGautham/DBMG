@@ -1,0 +1,536 @@
+/* About Page Specific Styles */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Active Navigation Link */
+.nav-links a.active {
+    color: #2a5298;
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff5722 100%);
+    border-radius: 2px;
+}
+
+/* About Hero Section */
+.about-hero {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.about-hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-subtitle {
+    font-size: 22px;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Company Overview */
+.about-overview {
+    padding: 80px 20px;
+    background: white;
+}
+
+.overview-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.overview-text h2 {
+    font-size: 36px;
+    color: #1e3c72;
+    margin-bottom: 25px;
+}
+
+.lead-text {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #2a5298;
+    margin-bottom: 20px;
+}
+
+.overview-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.overview-text strong {
+    color: #1e3c72;
+    font-weight: 600;
+}
+
+.overview-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.stat-box {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(42, 82, 152, 0.15);
+    border-color: #2a5298;
+}
+
+.stat-box .stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2a5298;
+    margin-bottom: 10px;
+}
+
+.stat-box .stat-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Mission & Vision */
+.mission-vision {
+    padding: 80px 20px;
+    background: #f8f9fa;
+}
+
+.mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.mission-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(42, 82, 152, 0.2);
+}
+
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.mission-card h3 {
+    color: #1e3c72;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.mission-card p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* Differentiators */
+.differentiators {
+    padding: 80px 20px;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 60px;
+    color: #1e3c72;
+}
+
+.diff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.diff-item {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.diff-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+}
+
+.diff-item h4 {
+    color: #1e3c72;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.diff-item p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* Team Section */
+.team-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 50px;
+    margin-top: -30px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.team-category {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.team-category:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(42, 82, 152, 0.15);
+}
+
+.team-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.team-category h4 {
+    color: #1e3c72;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.team-category p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* By The Numbers */
+.by-numbers {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+    color: white;
+}
+
+.section-title-white {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 60px;
+    color: white;
+}
+
+.numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+}
+
+.number-item {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.big-number {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.number-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* About CTA */
+.about-cta {
+    padding: 80px 20px;
+    text-align: center;
+    background: white;
+}
+
+.about-cta h2 {
+    font-size: 36px;
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+.about-cta p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .overview-content {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-vision-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .diff-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .numbers-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .about-hero {
+        padding: 60px 15px;
+    }
+
+    .about-hero-content h1 {
+        font-size: 28px;
+        line-height: 1.3;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .about-overview {
+        padding: 50px 15px;
+    }
+
+    .overview-text h2 {
+        font-size: 28px;
+    }
+
+    .lead-text {
+        font-size: 18px;
+    }
+
+    .overview-text p {
+        font-size: 15px;
+    }
+
+    .overview-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .stat-box {
+        padding: 25px;
+    }
+
+    .stat-box .stat-number {
+        font-size: 32px;
+    }
+
+    .mission-vision {
+        padding: 50px 15px;
+    }
+
+    .mission-vision-grid {
+        gap: 20px;
+    }
+
+    .mission-card {
+        padding: 30px 20px;
+    }
+
+    .card-icon {
+        font-size: 40px;
+    }
+
+    .mission-card h3 {
+        font-size: 20px;
+    }
+
+    .differentiators {
+        padding: 50px 15px;
+    }
+
+    .diff-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .diff-icon {
+        font-size: 48px;
+    }
+
+    .diff-item h4 {
+        font-size: 18px;
+    }
+
+    .team-section {
+        padding: 50px 15px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .team-category {
+        padding: 30px 20px;
+    }
+
+    .team-icon {
+        font-size: 40px;
+    }
+
+    .by-numbers {
+        padding: 50px 15px;
+    }
+
+    .numbers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .number-item {
+        padding: 20px 10px;
+    }
+
+    .big-number {
+        font-size: 36px;
+    }
+
+    .number-label {
+        font-size: 13px;
+    }
+
+    .section-title,
+    .section-title-white {
+        font-size: 26px;
+        margin-bottom: 40px;
+    }
+
+    .section-subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .about-cta {
+        padding: 50px 15px;
+    }
+
+    .about-cta h2 {
+        font-size: 26px;
+    }
+
+    .about-cta p {
+        font-size: 16px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Very Small Mobile Devices */
+@media (max-width: 375px) {
+    .about-hero-content h1 {
+        font-size: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .overview-text h2 {
+        font-size: 24px;
+    }
+
+    .lead-text {
+        font-size: 16px;
+    }
+
+    .big-number {
+        font-size: 32px;
+    }
+
+    .section-title,
+    .section-title-white {
+        font-size: 24px;
+    }
+
+    .numbers-grid {
+        grid-template-columns: 1fr;
+    }
+}
