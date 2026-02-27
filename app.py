@@ -138,7 +138,7 @@ Message:
 
         email_thread = threading.Thread(
             target=send_email_background,
-            args=(subject, 'sales@dbmgroups.com', body)
+            args=(subject, os.getenv('NOTIFY_EMAIL', 'sales@dbmgroups.com'), body)
         )
         email_thread.start()
 
